@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Todo-List</title>
+    <script src="https://unpkg.com/vue@2"></script>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <h1>To-Do List</h1>
+    <div id="app">
+      <div class="input-container">
+        <input
+          class="new-item-input"
+          placeholder="Write a new task here"
+          v-on:keyup.enter="addItem"
+        />
+        <a class="btn-input" v-on:click="addItem">Add item</a>
+      </div>
+
+      <div class="messages">
+        <div class="message message-empty" v-if="status.emptyList">
+          <p>I don't see any tasks here. Try adding one in the field above.</p>
+          <p>{{ cheerful_message }}</p>
+        </div>
+        <div class="message message-error" v-if="status.emptyTask">
+          <p>Looks like you entered an empty task, let's try another one.</p>
+          <p>{{ cheerful_message }}</p>
+        </div>
+      </div>
+
+      <div class="tasks" v-if="!status.emptyList">
+        <ol>
+          <li
+            v-for="(task, index) in tasks"
+            v-bind:task-id="index"
+            v-on:click="removeItem($event)"
+          >
+            {{ task }}
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <script src="scripts.js"></script>
+  </body>
+</html>
